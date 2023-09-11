@@ -26,7 +26,10 @@ class _HomePageState extends State<HomePage> {
   int total32 = 0;
 
   int lap = 1;
-
+  int lap12dif = 0; //difference in score between sta and team 2 lap 1
+  int lap13dif = 0; //difference in score between sta and team 3 lap 1
+  int lap22dif = 0; //difference in score between sta and team 2 lap 2
+  int lap23dif = 0; //difference in score between sta and team 3 lap 2
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,14 +118,15 @@ class _HomePageState extends State<HomePage> {
                   child: Text(runners1[4].toString()),
                 ),
                 ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        if (tm1 < 5) {
-                          tm1++;
-                        }
-                      });
-                    },
-                    child: const Text('+')),
+                  onPressed: () {
+                    setState(() {
+                      if (tm1 < 5) {
+                        tm1++;
+                      }
+                    });
+                  },
+                  child: Icon(Icons.run_circle_outlined),
+                ),
               ],
             ),
           ),
@@ -199,14 +203,15 @@ class _HomePageState extends State<HomePage> {
                   child: Text(runners2[4].toString()),
                 ),
                 ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        if (tm2 < 5) {
-                          tm2++;
-                        }
-                      });
-                    },
-                    child: const Text('+')),
+                  onPressed: () {
+                    setState(() {
+                      if (tm2 < 5) {
+                        tm2++;
+                      }
+                    });
+                  },
+                  child: Icon(Icons.run_circle_outlined),
+                ),
               ],
             ),
           ),
@@ -283,14 +288,15 @@ class _HomePageState extends State<HomePage> {
                   child: Text(runners3[4].toString()),
                 ),
                 ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        if (tm3 < 5) {
-                          tm3++;
-                        }
-                      });
-                    },
-                    child: const Text('+'))
+                  onPressed: () {
+                    setState(() {
+                      if (tm3 < 5) {
+                        tm3++;
+                      }
+                    });
+                  },
+                  child: Icon(Icons.run_circle_outlined),
+                )
               ],
             ),
           ),
@@ -301,72 +307,108 @@ class _HomePageState extends State<HomePage> {
           // Start of Lap 1 Team totals
           Container(
             height: 120,
-            child: Column(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  'Lap 1',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Lap 1',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'STA - ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'STA - ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          Text(
+                            "$total1",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        "$total1",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
+                    ),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Team 2 - ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          Text(
+                            "$total2",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Team 3 - ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          Text(
+                            "$total3",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
                 Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        'Team 2 - ',
+                        ' - ',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),
                       ),
                       Text(
-                        "$total2",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Team 3 - ',
+                        lap12dif > 0 ? '+' + '$lap12dif' : '$lap12dif',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),
                       ),
                       Text(
-                        "$total3",
+                        lap13dif > 0 ? '+' + '$lap13dif' : '$lap13dif',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -385,72 +427,108 @@ class _HomePageState extends State<HomePage> {
           // Start of Lap 2 Team totals
           Container(
             height: 120,
-            child: Column(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  'Lap 2',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Lap 2',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'STA - ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'STA - ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          Text(
+                            "$total12",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        "$total12",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
+                    ),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Team 2 - ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          Text(
+                            "$total22",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Team 3 - ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          Text(
+                            "$total32",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
                 Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        'Team 2 - ',
+                        ' - ',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),
                       ),
                       Text(
-                        "$total22",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Team 3 - ',
+                        lap22dif > 0 ? '+' + '$lap22dif' : '$lap22dif',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),
                       ),
                       Text(
-                        "$total32",
+                        lap23dif > 0 ? '+' + '$lap23dif' : '$lap23dif',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -507,6 +585,8 @@ class _HomePageState extends State<HomePage> {
                             runners2.fold(0, (p, e) => p + e) - runners2[4];
                         total3 =
                             runners3.fold(0, (p, e) => p + e) - runners3[4];
+                        lap12dif = total1 - total2;
+                        lap13dif = total1 - total3;
                       } else {
                         total12 =
                             runners1.fold(0, (p, e) => p + e) - runners1[4];
@@ -514,6 +594,8 @@ class _HomePageState extends State<HomePage> {
                             runners2.fold(0, (p, e) => p + e) - runners2[4];
                         total32 =
                             runners3.fold(0, (p, e) => p + e) - runners3[4];
+                        lap22dif = total12 - total22;
+                        lap23dif = total12 - total32;
                       }
                     });
                   },
@@ -541,6 +623,14 @@ class _HomePageState extends State<HomePage> {
                       total32 = 0;
 
                       lap = 1;
+
+                      lap12dif =
+                          0; //difference in score between sta and team 2 lap 1
+                      lap13dif =
+                          0; //difference in score between sta and team 3 lap 1
+                      lap22dif =
+                          0; //difference in score between sta and team 2 lap 2
+                      lap23dif = 0;
                     });
                   },
                   child: const Text("Clear"),
